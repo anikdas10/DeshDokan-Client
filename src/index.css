@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+
+@theme{
+  --color-primary : #008000;
+  --color-primary-light : #88E788;
+  --color-secondary : #00b050;
+  --color-secondary-light : #0b1a74;
+  --font-primary : "Poppins", sans-serif;
+}
+
+body{
+  @apply bg-blue-50;
+  
+}
+
+/* In your global CSS file */
+.scrollbar-none {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
