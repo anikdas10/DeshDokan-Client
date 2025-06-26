@@ -8,7 +8,8 @@ const Search = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [isSearchpage , setIsSearchPage ] = useState(false)
-
+    const params = useLocation();
+    const searchText = params?.search?.slice(3);
     useEffect(()=>{
         const isSearch = location.pathname === "/search";
         setIsSearchPage(isSearch)
@@ -17,6 +18,12 @@ const Search = () => {
     
     const redirectToSearchPage = ()=>{
         navigate("/search")
+    }
+
+    const handleOnChange = (e)=>{
+      const value = e.target.value
+      const url = `/search?q=${value}`
+      navigate(url)
     }
 
     return (
@@ -56,7 +63,9 @@ const Search = () => {
                     />
                   </div>):
                   (<div className="w-full h-full">
-                    <input type="text" placeholder="Search for chal , dal and more." className="w-full h-full outline-none" autoFocus />
+                    <input onChange={handleOnChange} 
+                    defaultValue={searchText}
+                    type="text" placeholder="Search for chal , dal and more." className="w-full h-full outline-none" autoFocus />
                   </div>)
             }
         </div>

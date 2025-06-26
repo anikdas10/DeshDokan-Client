@@ -26,3 +26,5 @@ export const RouteUploadProducts= "upload-product";
 // product section
 
 export const RouteProductDetails = "/product/:product"
+export const RouteCartMobile = "/cart"
+export const RouteCartCheckOut = "/checkout"

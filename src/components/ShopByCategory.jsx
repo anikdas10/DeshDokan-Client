@@ -5,7 +5,6 @@ const ShopByCategory = () => {
     const {loading,allCategory,allSubCategory} = useSelector((state)=>state.product)
     const navigate = useNavigate();
     const handleRedirectProductListPage=(id,name)=>{
-      console.log(name);
         const subCategory = allSubCategory?.find(sub=>{
             const filterData = sub.category.some(c=>{
                 return c._id === id

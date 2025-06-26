@@ -1,4 +1,4 @@
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import  { Toaster } from "react-hot-toast";
@@ -11,8 +11,10 @@ import AxiosToastError from "../common/AxiosToastError";
 import { setAllCategory, setAllSubCategory, setLoadingCategory, setLoadingSubCategory } from "../store/productSlice";
 import fetchCategory from "../utilities/fetchCategory";
 import fetchSubCategory from "../utilities/fetchSubCategory";
+import AuthProvider from "../Provider/AuthPorvider";
+import CartMobileLink from "../components/CartMobileLink";
 const Layout = () => {
-
+const location = useLocation();
   const dispatch = useDispatch();
 
   const fetchUser = async()=>{
@@ -52,21 +54,29 @@ const fetchSubCategoryData  = async () => {
 };
 
 
+
   useEffect(()=>{
     fetchUser()
     fetchCategoryData()
     fetchSubCategoryData()
+    // fetchCartItem()
   },[])
     return (
-      <>
-      <Header/>
+      <AuthProvider>
+        <Header />
         <main className="min-h-[75vh] font-primary">
           <Outlet />
         </main>
-        <Footer/>
-        <Toaster/>
-      </>
+        <Footer />
+        <Toaster />
+        
+         {
+            location.pathname !== "/checkout" && <CartMobileLink/>
+         } 
+      </AuthProvider>
     );
 };
 
 export default Layout;
+
+// location.pathname !== "/checkout" &&

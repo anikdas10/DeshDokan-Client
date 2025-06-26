@@ -6,6 +6,7 @@ import summaryApi from "../common/CommonApi";
 import Loading from "../components/Loading"
 import { DisplayPrice } from "../utilities/DisplayPriceInTk";
 import { PriceWithDiscount } from "../utilities/PriceWithDiscount";
+import AddToCartButton from "../components/AddToCartButton";
 const ProductDetails = () => {
 
     const [data,setData] = useState({
@@ -103,7 +104,6 @@ const ProductDetails = () => {
             <span className="font-semibold">Unit : </span>
             {data.unit}
           </p>
-          
 
           <div className="border my-1 border-slate-300"></div>
           <div>
@@ -114,14 +114,13 @@ const ProductDetails = () => {
                   {DisplayPrice(PriceWithDiscount(data.price, data.discount))}
                 </p>
               </div>
-              {
-                data.discount && (<p className="line-through">
-                  {DisplayPrice(data.price)}
-                </p>)
-              }
+              {data.discount && (
+                <p className="line-through">{DisplayPrice(data.price)}</p>
+              )}
               {data.discount && (
                 <p className="font-semibold text-green-600 lg:text-2xl">
-                  {data.discount}% <span className="text-base text-neutral-900">discount</span>
+                  {data.discount}%{" "}
+                  <span className="text-base text-neutral-900">discount</span>
                 </p>
               )}
             </div>
@@ -130,9 +129,9 @@ const ProductDetails = () => {
           {data.stock === 0 ? (
             <p className="text-lg text-red-500 py-3">Out of Stock</p>
           ) : (
-            <button className="my-4 px-4 py-2 bg-green-600 hover:bg-green-700 rounded-md text-white cursor-pointer ">
-              Add
-            </button>
+            <div className="my-3">
+              <AddToCartButton data={data} />
+            </div>
           )}
         </div>
 

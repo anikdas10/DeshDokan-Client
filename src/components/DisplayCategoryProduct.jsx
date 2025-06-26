@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import AxiosToastError from "../common/AxiosToastError"
 import Axios from "../utilities/axios";
 import summaryApi from "../common/CommonApi";
 import CardLoading from "./CardLoading";
 import CardProduct from "./CardProduct";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+import validURLConverter from "../utilities/validURLConverter";
+import { useSelector } from "react-redux";
+import Loading from "./Loading";
 
 const DisplayCategoryProduct = ({id,name}) => {
 
@@ -41,6 +44,23 @@ const DisplayCategoryProduct = ({id,name}) => {
         containerRef.current.scrollLeft -=200
     }
 
+    const { subCategoryLoading, allSubCategory } = useSelector(
+      (state) => state.product
+    );
+    const navigate = useNavigate();
+    const handleRedirectProductListPage = () => {
+      const subCategory = allSubCategory?.find((sub) => {
+        const filterData = sub.category.some((c) => {
+          return c._id === id;
+        });
+        return filterData ? true : null;
+      });
+      const url = `/${validURLConverter(name)}-${id}/${validURLConverter(
+        subCategory.name
+      )}-${subCategory._id}`;
+      navigate(url);
+    };
+
     useEffect(()=>{
         fetchCategoryWiseData()
     },[])
@@ -50,7 +70,7 @@ const DisplayCategoryProduct = ({id,name}) => {
       <div className="container mx-auto">
         <div className="flex items-center justify-between p-4">
           <h3 className="font-semibold text-lg md:text-xl">{name}</h3>
-          <Link className="text-green-600 hover:text-green-700">See All</Link>
+          <button onClick={handleRedirectProductListPage} className="text-green-600 hover:text-green-700 cursor-pointer">See All</button>
         </div>
 
         <div
@@ -81,6 +101,10 @@ const DisplayCategoryProduct = ({id,name}) => {
             </button>
           </div>
         </div>
+
+        {
+          subCategoryLoading && <Loading/>
+        }
       </div>
     );
 };

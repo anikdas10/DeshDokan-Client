@@ -6,11 +6,13 @@ import { logout } from "../store/userSlice";
 import toast from "react-hot-toast";
 import AxiosToastError from "../common/AxiosToastError";
 import { FaExternalLinkAlt } from "react-icons/fa";
+import { addItemCart } from "../store/cartProduct";
 
 const UserMenu = () => {
     const user = useSelector((state)=>state.user)
     const dispatch = useDispatch();
     const navigate = useNavigate()
+    // const { fetchCartItem } = useAuth();
     const handleLogOut = async () => {
         try {
             const response = await Axios({
@@ -20,6 +22,7 @@ const UserMenu = () => {
             if(response?.data?.success)
             {
                 dispatch(logout())
+                dispatch(addItemCart([]))
                 localStorage.clear()
                 toast.success(response?.data?.message)
                 navigate("/")

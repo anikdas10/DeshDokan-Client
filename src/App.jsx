@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router"
 import Layout from "./Layout/Layout"
 import HomePage from "./pages/HomePage"
-import { RouteCategory, RouteForgotPassword, RouteIndex, RouteOtpVerification, RouteProductDetails, RouteProducts, RouteResetPassword, RouteSearch, RouteSignIn, RouteSignUp, RouteSubCategory, RouteUploadProducts, RouteUserDashboard, RouteUserDashboardAddress, RouteUserDashboardEditProfile, RouteUserDashboardOrder, RouteUserDashboardProfile, RouteUserMenuMobile } from "./helpers/RouteName"
+import { RouteCartCheckOut, RouteCartMobile, RouteCategory, RouteForgotPassword, RouteIndex, RouteOtpVerification, RouteProductDetails, RouteProducts, RouteResetPassword, RouteSearch, RouteSignIn, RouteSignUp, RouteSubCategory, RouteUploadProducts, RouteUserDashboard, RouteUserDashboardAddress, RouteUserDashboardEditProfile, RouteUserDashboardOrder, RouteUserDashboardProfile, RouteUserMenuMobile } from "./helpers/RouteName"
 import SearchPage from "./pages/SearchPage"
 import Login from "./pages/Login"
 import Register from "./pages/Register"
@@ -23,6 +23,9 @@ import UploadProduct from "./pages/Admin/UploadProduct"
 import AdminProtect from "./components/AdminProtect"
 import ProductList from "./pages/ProductList"
 import ProductDetails from "./pages/ProductDetails"
+import CartMobile from "./pages/CartMobile"
+import CheckOutPage from "./pages/CheckOutPage"
+import Success from "./pages/Success"
 
 function App() {
 
@@ -88,6 +91,9 @@ function App() {
           </Route>
 
           {/* product details */}
+          <Route path={RouteCartMobile} element={<CartMobile />} />
+          <Route path={RouteCartCheckOut} element={<CheckOutPage />} />
+          <Route path={"/success"} element={<Success />} />
         </Route>
       </Routes>
     </BrowserRouter>

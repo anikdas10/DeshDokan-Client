@@ -1,7 +1,7 @@
 
-export const baseURL = "http://localhost:5000";
+export const baseURL = import.meta.env.VITE_API_URL;
 
- const summaryApi = {
+const summaryApi = {
    register: {
      url: "/api/user/register",
      method: "post",
@@ -100,11 +100,47 @@ export const baseURL = "http://localhost:5000";
    },
    updateProductDetails: {
      url: "/api/product/update-product",
-     method : "put"
+     method: "put",
    },
    deleteProduct: {
      url: "/api/product/delete-product",
-     method : "delete"
+     method: "delete",
+   },
+   searchProduct: {
+     url: "/api/product/search-product",
+     method: "post",
+   },
+   addToCart: {
+     url: "/api/cart/create",
+     method: "post",
+   },
+   getToCart: {
+     url: "/api/cart/get-cart",
+     method: "get",
+   },
+   updateToCart: {
+     url: "/api/cart/update-quantity",
+     method: "put",
+   },
+   deleteToCart: {
+     url: "/api/cart/delete-cart-item",
+     method: "delete",
+   },
+   addAddress: {
+     url: "/api/address/add-address",
+     method: "post",
+   },
+   getAddress: {
+     url: "/api/address/get-address",
+     method: "get",
+   },
+   cashOnDelivery: {
+     url: "/api/order/cash-on-delivery",
+     method: "post",
+   },
+   payment_url: {
+     url: "/api/order/checkout",
+     method: "post",
    },
  };
 

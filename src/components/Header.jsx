@@ -6,13 +6,22 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { TiShoppingCart } from "react-icons/ti";
 import { useSelector } from "react-redux";
 import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
-import { useState } from "react";
+import {  useState } from "react";
 import UserMenu from "./userMenu";
+import { DisplayPrice } from "../utilities/DisplayPriceInTk";
+import useAuth from "../Provider/useAuth";
+import DisplayCartItem from "./DisplayCartItem";
 
 const Header = () => {
   const user = useSelector((state)=>state?.user)
   const [openUserMenu,setOpenUserMenu] = useState(false)
+  const [openCartSection, setOpenCartSection] = useState(false);
+  
 
+  const {totalPrice , totalQuantity} = useAuth();
+  const { cart } = useSelector((state) => state?.cartItem);
+  // console.log(fetchCartItem);
+  // console.log(cart , cartLoading);
   const navigate = useNavigate();
 
   const handleMobileUser = ()=>{
@@ -25,6 +34,7 @@ const Header = () => {
 
   }
  
+
     return (
       <header className="h-16 lg:h-20  shadow-md sticky top-0 z-50 bg-white font-primary">
         <div className="container mx-auto h-full px-4 flex items-center justify-between">
@@ -45,7 +55,10 @@ const Header = () => {
           {/* login and add to cart */}
           <div>
             {/* this is only for mobile */}
-            <button onClick={handleMobileUser} className="text-neutral-600 lg:hidden">
+            <button
+              onClick={handleMobileUser}
+              className="text-neutral-600 lg:hidden"
+            >
               <FaRegUserCircle size={26} />
             </button>
 
@@ -80,18 +93,29 @@ const Header = () => {
                 </Link>
               )}
 
-              <button className="flex items-center bg-primary px-3 py-3 rounded-md text-white gap-2">
+              <button onClick={()=>setOpenCartSection(true)} className="flex items-center bg-primary px-3 py-2 rounded-md text-white gap-2 cursor-pointer">
                 {/* add to cart icon */}
                 <div className="animate-bounce">
                   <TiShoppingCart size={25} />
                 </div>
                 <div className="font-semibold">
-                  <p>My Cart</p>
+                  {cart[0] ? (
+                    <div>
+                      <p>{totalQuantity} Items</p>
+                      <p>{DisplayPrice(totalPrice)}</p>
+                    </div>
+                  ) : (
+                    <p>My Cart</p>
+                  )}
                 </div>
               </button>
             </div>
           </div>
         </div>
+
+        {openCartSection && (
+          <DisplayCartItem close={() => setOpenCartSection(false)} />
+        )}
       </header>
     );
 };
